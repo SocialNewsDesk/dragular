@@ -548,8 +548,8 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
         if (!drake.dragging) {
           return;
         }
-        var reverts = arguments.length > 0 ? revert : o.revertOnSpill,
-          parent = shared.item.parentElement;
+        var reverts = arguments.length > 0 ? revert : o.revertOnSpill;
+        var parent = shared.item ? shared.item.parentElement : null;
 
         var initial = isInitialPlacement(parent);
         if (initial === false && shared.copy === false && reverts) {
@@ -953,14 +953,18 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
   }
 
   function nextEl(el) {
-    return el.nextElementSibling || manually();
-
     function manually() {
       var sibling = el;
       do {
         sibling = sibling.nextSibling;
       } while (sibling && sibling.nodeType !== 1);
       return sibling;
+    }
+
+    if (el) {
+      return el.nextElementSibling || manually();
+    } else {
+      return el;
     }
   }
 
