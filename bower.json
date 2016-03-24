@@ -1,6 +1,6 @@
 {
   "name": "352-dragular",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "A fork of dragular that supports touch events",
   "main": [
     "dist/dragular.min.js",
@@ -13,9 +13,10 @@
     "node_modules",
     "bower_components"
   ],
-  "homepage": "http://luckylooke.github.io/dragular/",
+  "homepage": "https://github.com/352media/dragular",
   "authors": [
-    "Ctibor Laky <luckylooke@gmail.com>"
+    "Ctibor Laky <luckylooke@gmail.com>",
+    "Eric Nograles <enograles@352inc.com>"
   ],
   "license": "MIT"
 }
