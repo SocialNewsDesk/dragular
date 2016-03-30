@@ -681,7 +681,10 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
           // moving item/copy to new container from previous one
           shared.currentSibling = reference;
 
-          dropTarget.insertBefore(shared.item, reference); // if reference is null item is inserted at the end
+          // IE11 acccomodation
+          if (dropTarget) {
+            dropTarget.insertBefore(shared.item, reference); // if reference is null item is inserted at the end
+          }
 
           if (o.scope) {
             o.scope.$emit('dragularshadow', shared.item, dropTarget);
