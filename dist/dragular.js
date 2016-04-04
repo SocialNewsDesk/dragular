@@ -399,6 +399,13 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
         shared.source = context.source;
         shared.initialSibling = shared.currentSibling = nextEl(context.item);
 
+        // Keep last x and y coordinates for touch events
+        document.addEventListener('touchmove', function(event) {
+          shared.touch = shared.touch || {};
+          shared.touch.x = event.touches[0]['pageX'];
+          shared.touch.y = event.touches[0]['pageY'];
+        });
+
         if (isCopy(context.item, context.source)) {
           shared.item = context.item.cloneNode(true);
           shared.copy = true;
@@ -446,8 +453,14 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
         }
         e = e || window.event;
 
-        shared.clientX = getCoord('clientX', e);
-        shared.clientY = getCoord('clientY', e);
+        // Touch accomodations
+        if (e.type.indexOf('touch') < 0) {
+          shared.clientX = getCoord('clientX', e);
+          shared.clientY = getCoord('clientY', e);
+        } else {
+          shared.clientX = shared.touch.x;
+          shared.clientY = shared.touch.y;
+        }
 
         var elementBehindCursor = getElementBehindPoint(shared.mirror, shared.clientX, shared.clientY),
           dropTarget = findDropTarget(elementBehindCursor, shared.clientX, shared.clientY);
