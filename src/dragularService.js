@@ -403,7 +403,7 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
         } else if (o.removeOnSpill) {
           remove();
         } else {
-          cancel();
+          cancel(null, e);
         }
 
         // after release there is no container hovered
@@ -489,7 +489,7 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
         }
       }
 
-      function cancel(revert) {
+      function cancel(revert, event) {
         if (!drake.dragging) {
           return;
         }
@@ -505,6 +505,13 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
         } else if (o.scope) {
           if (initial || reverts) {
             o.scope.$emit('dragularcancel', shared.item, shared.source);
+          }
+
+          // Accomodation for touch which falls into this block
+          if (event) {
+            if (event.type === 'touchend') {
+              o.scope.$emit('dragulartouchend', shared.item, shared.source);
+            }
           }
         }
 
