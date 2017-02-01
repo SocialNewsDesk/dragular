@@ -1,6 +1,6 @@
 {
   "name": "snd-dragular",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "description": "A fork of dragular that supports touch events and ignoring certain elements in the draggable container",
   "main": [
     "dist/dragular.min.js",
