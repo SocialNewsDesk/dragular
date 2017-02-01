@@ -237,7 +237,50 @@ dragularModule.factory('dragularService', ['$rootScope', function dragula($rootS
 
       function grab(e) {
         e = e || window.event;
-
+        // Add logic to ignore elements by tagName, classes, and attribute values if passed in options
+        var shouldReturn = false;
+        if (e.target) {
+          if (e.target.classList && e.target.classList && o.ignoreClasses) {
+            var classList = [];
+            for (var key in e.target.classList) {
+              if (e.target.classList.hasOwnProperty(key)) {
+                classList.push(e.target.classList[key]);
+              }
+            }
+            o.ignoreClasses.forEach(function(className) {
+              if (classList.indexOf(className) !== -1) {
+                shouldReturn = true;
+              }
+            });
+          }
+          if (e.target.tagName && o.ignoreTags) {
+            o.ignoreTags.forEach(function(tagName) {
+              if (e.target.tagName.toLowerCase() === tagName) {
+                shouldReturn = true;
+              }
+            });
+          }
+          if (e.target.attributes && o.ignoreAttributeValues) {
+            var attributeList = [];
+            var attributeValues = [];
+            for (var key2 in e.target.attributes) {
+              if (e.target.attributes.hasOwnProperty(key2)) {
+                attributeList.push(e.target.attributes[key2]);
+              }
+            }
+            attributeList.forEach(function(attribute) {
+              attributeValues.push(attribute.nodeValue);
+            });
+            o.ignoreAttributeValues.forEach(function(attributeValue) {
+              if (attributeValues.indexOf(attributeValue) !== -1) {
+                shouldReturn = true;
+              }
+            });
+          }
+        }
+        if (shouldReturn) {
+          return;
+        }
         // filter some odd situations
         if ((e.which !== 0 && e.which !== 1) || e.metaKey || e.ctrlKey) {
           return; // we only care about honest-to-god left clicks and touch events

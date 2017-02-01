@@ -1,7 +1,7 @@
 {
-  "name": "352-dragular",
-  "version": "3.0.7",
-  "description": "A fork of dragular that supports touch events",
+  "name": "snd-dragular",
+  "version": "3.0.8",
+  "description": "A fork of dragular that supports touch events and ignoring certain elements in the draggable container",
   "main": [
     "dist/dragular.min.js",
     "dist/dragular.min.css"
@@ -13,10 +13,11 @@
     "node_modules",
     "bower_components"
   ],
-  "homepage": "https://github.com/352media/dragular",
+  "homepage": "https://github.com/SocialNewsDesk/dragular",
   "authors": [
     "Ctibor Laky <luckylooke@gmail.com>",
-    "Eric Nograles <enograles@352inc.com>"
+    "Eric Nograles <enograles@352inc.com>",
+    "Keith Keough <kkeough@socialnewsdesk.com>"
   ],
   "license": "MIT"
 }
